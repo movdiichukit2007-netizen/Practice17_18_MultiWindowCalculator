@@ -19,8 +19,8 @@ public class MainForm : Form
     {
         Text = "Калькулятор";
         StartPosition = FormStartPosition.CenterScreen;
-        MinimumSize = new Size(460, 560);
-        Size = new Size(460, 600);
+        MinimumSize = new Size(660, 540);
+        Size = new Size(700, 560);
         BackColor = Color.FromArgb(245, 245, 245);
         KeyPreview = true;
 
@@ -32,7 +32,7 @@ public class MainForm : Form
         };
 
         lblDisplay.Name = "lblDisplay";
-        lblDisplay.Text = "7654321";
+        lblDisplay.Text = "4453";
         lblDisplay.Dock = DockStyle.Fill;
         lblDisplay.BackColor = Color.WhiteSmoke;
         lblDisplay.ForeColor = Color.DarkGreen;
@@ -266,10 +266,11 @@ public class MainForm : Form
 
         using ConfirmClearForm confirm = new();
         confirm.StartPosition = FormStartPosition.Manual;
-        confirm.Location = new Point(Location.X + 70, Location.Y + 150);
+        confirm.Location = new Point(Location.X + 70, Location.Y + 185);
         confirm.Show(this);
         Application.DoEvents();
         SaveControlImage(confirm, Path.Combine(outputDirectory, "practice17_18_confirm.png"));
+        SaveOverlayImage(confirm, new Point(70, 185), Path.Combine(outputDirectory, "practice17_18_dialog_on_calculator.png"));
         confirm.Close();
         Hide();
     }
@@ -286,5 +287,18 @@ public class MainForm : Form
         using Bitmap bitmap = new(control.Width, control.Height);
         control.DrawToBitmap(bitmap, new Rectangle(0, 0, control.Width, control.Height));
         bitmap.Save(path);
+    }
+
+    private void SaveOverlayImage(Control overlay, Point overlayLocation, string path)
+    {
+        using Bitmap baseBitmap = new(Width, Height);
+        DrawToBitmap(baseBitmap, new Rectangle(0, 0, Width, Height));
+
+        using Bitmap overlayBitmap = new(overlay.Width, overlay.Height);
+        overlay.DrawToBitmap(overlayBitmap, new Rectangle(0, 0, overlay.Width, overlay.Height));
+
+        using Graphics graphics = Graphics.FromImage(baseBitmap);
+        graphics.DrawImage(overlayBitmap, overlayLocation);
+        baseBitmap.Save(path);
     }
 }

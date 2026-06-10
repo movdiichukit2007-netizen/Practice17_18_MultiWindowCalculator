@@ -11,8 +11,8 @@ public class ConfirmClearForm : Form
 
     public ConfirmClearForm()
     {
-        Text = "Підтвердження";
-        Size = new Size(470, 180);
+        Text = "Очистка стану калькулятора";
+        Size = new Size(560, 170);
         FormBorderStyle = FormBorderStyle.FixedDialog;
         MinimizeBox = false;
         MaximizeBox = false;
@@ -20,23 +20,24 @@ public class ConfirmClearForm : Form
 
         Label labelQuestion = new()
         {
-            Text = "Ви дійсно хочете очистити вміст калькулятора?",
+            Text = "Ви дійсно бажаєте очистити стан калькулятора?",
             AutoSize = false,
             TextAlign = ContentAlignment.MiddleCenter,
             Location = new Point(20, 18),
-            Size = new Size(420, 48),
-            Font = new Font("Segoe UI", 10, FontStyle.Regular)
+            Size = new Size(510, 48),
+            Font = new Font("Segoe UI", 12, FontStyle.Regular),
+            ForeColor = Color.DarkOrange
         };
 
         buttonYes.Name = "buttonYes";
         buttonYes.Text = "Так";
-        buttonYes.Location = new Point(126, 82);
+        buttonYes.Location = new Point(190, 86);
         buttonYes.Size = new Size(90, 32);
         buttonYes.Click += ButtonYes_Click;
 
         buttonNo.Name = "buttonNo";
         buttonNo.Text = "Ні";
-        buttonNo.Location = new Point(250, 82);
+        buttonNo.Location = new Point(300, 86);
         buttonNo.Size = new Size(90, 32);
         buttonNo.Click += ButtonNo_Click;
 
