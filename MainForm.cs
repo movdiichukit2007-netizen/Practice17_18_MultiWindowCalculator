@@ -10,6 +10,8 @@ public class MainForm : Form
 {
     private readonly Label lblDisplay = new();
     private readonly TableLayoutPanel tableButtons = new();
+    private readonly RadioButton radioOn = new();
+    private readonly RadioButton radioOff = new();
 
     private double firstNumber;
     private string operation = "";
@@ -40,6 +42,29 @@ public class MainForm : Form
         lblDisplay.Font = new Font("Segoe UI", 26, FontStyle.Regular);
         lblDisplay.BorderStyle = BorderStyle.FixedSingle;
         pnlDisplay.Controls.Add(lblDisplay);
+
+        Panel pnlState = new()
+        {
+            Dock = DockStyle.Top,
+            Height = 36,
+            Padding = new Padding(14, 0, 14, 0)
+        };
+
+        radioOn.Name = "radioOn";
+        radioOn.Text = "ON";
+        radioOn.ForeColor = Color.Green;
+        radioOn.Checked = true;
+        radioOn.AutoSize = true;
+        radioOn.Location = new Point(16, 7);
+
+        radioOff.Name = "radioOff";
+        radioOff.Text = "OFF";
+        radioOff.ForeColor = Color.Red;
+        radioOff.AutoSize = true;
+        radioOff.Location = new Point(72, 7);
+
+        pnlState.Controls.Add(radioOn);
+        pnlState.Controls.Add(radioOff);
 
         tableButtons.Dock = DockStyle.Fill;
         tableButtons.ColumnCount = 4;
@@ -79,6 +104,7 @@ public class MainForm : Form
         AddButton("=", 2, 4, Equal_Click, 2);
 
         Controls.Add(tableButtons);
+        Controls.Add(pnlState);
         Controls.Add(pnlDisplay);
         KeyDown += Form_KeyDown;
     }
@@ -266,11 +292,11 @@ public class MainForm : Form
 
         using ConfirmClearForm confirm = new();
         confirm.StartPosition = FormStartPosition.Manual;
-        confirm.Location = new Point(Location.X + 70, Location.Y + 185);
+        confirm.Location = new Point(Location.X + 70, Location.Y + 205);
         confirm.Show(this);
         Application.DoEvents();
         SaveControlImage(confirm, Path.Combine(outputDirectory, "practice17_18_confirm.png"));
-        SaveOverlayImage(confirm, new Point(70, 185), Path.Combine(outputDirectory, "practice17_18_dialog_on_calculator.png"));
+        SaveOverlayImage(confirm, new Point(70, 205), Path.Combine(outputDirectory, "practice17_18_dialog_on_calculator.png"));
         confirm.Close();
         Hide();
     }
